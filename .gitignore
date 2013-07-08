@@ -3,7 +3,8 @@
 *.lo
 *.o
 
-/matching
+# Compiled program
+/hits
 
 # Compiled Dynamic libraries
 *.so

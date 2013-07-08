@@ -206,7 +206,7 @@ graph
 	node
 	[
 		id	9
-		label	"pmdi:17079492"
+		label	"pmid:17079492"
 		graphics
 		[
 			x	374.625
@@ -219,7 +219,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"pmdi:17079492"
+			text	"pmid:17079492"
 			fontSize	13
 			fontName	"Dialog"
 			anchor	"c"

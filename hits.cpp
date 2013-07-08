@@ -33,6 +33,12 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <iomanip>
+
+// http://stackoverflow.com/questions/554063/how-do-i-print-a-double-value-with-full-precision-using-cout
+#include <limits>
+typedef std::numeric_limits< double > dbl;
+
 
 #include <GTL/GTL.h>
 #include <GTL/components.h>
@@ -80,7 +86,7 @@ int main (int argc, const char * argv[])
 	}
 	
 	
-	if (1)
+	if (0)
 	{
 		// Page rank
 		node_map<double> page_rank (G, 0.0);
@@ -214,7 +220,13 @@ int main (int argc, const char * argv[])
 		node n;
 		forall_nodes (n, G)
 		{
-			cout << G.get_node_label(n) << "\t" << authority_weight[n] << "\t" << hub_weight[n] << endl;
+		
+		
+		
+			cout << G.get_node_label(n) 
+				<< "\t" << std::fixed << std::setprecision(3) << authority_weight[n] 
+				<< "\t" << std::fixed << std::setprecision(3) << hub_weight[n] 
+				<< endl;
 		}
 	}
 	
