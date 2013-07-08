@@ -35,3 +35,18 @@ Running the program on this graph
 * matching examples/CASENT0106070.gml
 
 produces a text dump of PageRank values.
+
+	Graph read from file "examples/CASENT0106070.gml" has 10 nodes and 20 edges
+	Node	Page rank
+	CASENT0106070	1.25722
+	AY703487	0.194147
+	AY703554 	0.194147
+	AY703621 	0.194147
+	AY703688	0.194147
+	AY703755 	0.194147
+	EF013219	0.165938
+	EF013381	0.165938
+	doi:10.1111/j.1365-3113.2004.00281.x	0.165938
+	pmdi:17079492	0.15
+
+
