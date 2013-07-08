@@ -86,7 +86,7 @@ int main (int argc, const char * argv[])
 	}
 	
 	
-	if (0)
+	if (1)
 	{
 		// Page rank
 		node_map<double> page_rank (G, 0.0);
@@ -123,10 +123,9 @@ int main (int argc, const char * argv[])
 		node n;
 		forall_nodes (n, G)
 		{
-			cout << G.get_node_label(n) << "\t" << page_rank[n]  << endl;
+			cout << G.get_node_label(n) << "\t" << std::fixed << std::setprecision(3) << page_rank[n]  << endl;
 		}
-		
-		
+
 	}
 	else
 	{
