@@ -49,4 +49,8 @@ produces a text dump of PageRank values.
 	doi:10.1111/j.1365-3113.2004.00281.x	0.165938
 	pmdi:17079492	0.15
 
+Another example comes from [Hyperlink Induced Topic Search (HITS) Algorithm using Networxx Module | Python](https://www.geeksforgeeks.org/hyperlink-induced-topic-search-hits-algorithm-using-networxx-module-python/):
+
+![Example](https://github.com/rdmpage/hubs-and-authorities/raw/master/examples/g.png)
+
 
