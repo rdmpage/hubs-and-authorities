@@ -8,7 +8,8 @@
 // relationship "cites", we compute the authority and hub values for each node
 // based on Jon Kleinberg's "Authoritative sources in a hyperlinked environment"
 // (http://doi.acm.org/10.1145/324133.324140). The results are dumped as a 
-// tab-delimited list.
+// tab-delimited list. Algorithm based on Wikipedia article 
+// https://en.wikipedia.org/wiki/HITS_algorithm
 //
 // Pagerank algorithm based on http://www.ianrogers.net/google-page-rank/
 //
@@ -86,7 +87,7 @@ int main (int argc, const char * argv[])
 	}
 	
 	
-	if (1)
+	if (0)
 	{
 		// Page rank
 		node_map<double> page_rank (G, 0.0);
@@ -129,22 +130,24 @@ int main (int argc, const char * argv[])
 	}
 	else
 	{
-		// Hits
-	
+		// Hits	
 		node_map<double> authority_weight (G, 1.0);
 		node_map<double> hub_weight (G, 1.0);
 		
-		int k = 20;
+		double norm;
+		
+		int k = 1;
 		for (int i = 0; i < k; i++)
 		{
+			norm = 0.0;
+		
 			// Authority
 			//cout << "--------------Auth-----------------" << endl;
 			node p;
 			forall_nodes (p, G)
 			{
 				//cout << G.get_node_label(p) << ":";
-				
-				double sum = 0.0;
+				authority_weight[p] = 0.0;
 				
 				node::in_edges_iterator it = p.in_edges_begin();
 				node::in_edges_iterator end = p.in_edges_end();
@@ -152,63 +155,44 @@ int main (int argc, const char * argv[])
 				{
 					node q = p.opposite(*it);
 					
-					sum += hub_weight[q];
+					authority_weight[p] += hub_weight[q];
 					
 					//cout << q << " ";
 					it++;
 				}
 				//cout << endl;
-				
-				authority_weight[p] = sum;
+				norm += (authority_weight[p] * authority_weight[p]); 
 			}
 			
-			// Normalise
-			double total = 0.0;
+			norm = sqrt(norm);
 			forall_nodes (p, G)
 			{
-				total += authority_weight[p] * authority_weight[p];
+				authority_weight[p] = authority_weight[p] / norm;
 			}
-			double sq = sqrt(total);
+
+			norm = 0.0;
 			forall_nodes (p, G)
 			{
-				authority_weight[p] = authority_weight[p]/sq;
-			}
-			
-	
-			// Hub
-			//cout << "--------------Hub-----------------" << endl;
-			forall_nodes (p, G)
-			{
-				//cout << G.get_node_label(p) << ":";
-				
-				double sum = 0.0;
-				
+				hub_weight[p] = 0.0;
+
 				node::out_edges_iterator it = p.out_edges_begin();
 				node::out_edges_iterator end = p.out_edges_end();
 				while (it != end)
 				{
 					node q = p.opposite(*it);
 					
-					sum += authority_weight[q];
-					
+					hub_weight[p] += authority_weight[q];
+
 					//cout << q << " ";
 					it++;
 				}
-				//cout << endl;
-				
-				hub_weight[p] = sum;
+				norm += (hub_weight[p] * hub_weight[p]);
 			}
-	
-			// Normalise
-			total = 0.0;
+
+			norm = sqrt(norm);
 			forall_nodes (p, G)
 			{
-				total += hub_weight[p] * hub_weight[p];
-			}
-			sq = sqrt(total);
-			forall_nodes (p, G)
-			{
-				hub_weight[p] = hub_weight[p]/sq;
+				hub_weight[p] = hub_weight[p] / norm;
 			}
 	
 			
@@ -219,9 +203,6 @@ int main (int argc, const char * argv[])
 		node n;
 		forall_nodes (n, G)
 		{
-		
-		
-		
 			cout << G.get_node_label(n) 
 				<< "\t" << std::fixed << std::setprecision(3) << authority_weight[n] 
 				<< "\t" << std::fixed << std::setprecision(3) << hub_weight[n] 

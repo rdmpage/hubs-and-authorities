@@ -1,3 +1,5 @@
+.DS_Store
+
 # Compiled Object files
 *.slo
 *.lo
@@ -19,6 +21,8 @@
 
 Makefile
 Makefile.in
+COPYING
+INSTALL
 
 # http://www.gnu.org/software/autoconf
 
@@ -29,3 +33,10 @@ Makefile.in
 /depcomp
 /install-sh
 /missing
+
+*.log
+*.status
+
+# dependencies
+/.deps
+/graph/.deps
